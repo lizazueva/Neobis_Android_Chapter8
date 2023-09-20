@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="TextInputLayoutHint">parent="TextAppearance.Design.Hint">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="MyPasswordToggleStyle">
+        <item name="android:state_checked">false</item>
+        <item name="android:drawable">@drawable/ic_eye_crossed</item>
+        <item name="android:tint">@color/grey</item>
+    </style>
+</resources>
