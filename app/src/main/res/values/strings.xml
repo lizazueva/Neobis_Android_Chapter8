@@ -6,4 +6,5 @@
     <string name="editText_name">Имя пользователя</string>
     <string name="text_registration">Зарегистрироваться</string>
     <string name="text_registration_screen">Регистрация</string>
+    <string name="text_rule">Минимальная длина — 8 символов.\n Для надежности пароль должен\n содержать буквы и цифры.</string>
 </resources>

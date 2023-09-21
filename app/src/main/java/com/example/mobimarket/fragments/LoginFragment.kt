@@ -11,10 +11,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
+import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.FragmentLoginBinding
 import com.example.mobimarket.viewModel.LoginViewModel
+import com.example.mobimarket.viewModel.ViewModelProviderFactory
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -29,6 +32,10 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         return binding.root
+
+        val repository = Repository()
+        val viewModelFactory = ViewModelProviderFactory(repository)
+        viewModelLoginFragment = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -78,19 +85,6 @@ class LoginFragment : Fragment() {
 
     }
 
-//    private fun snackBar() {
-//        val snackbar = Snackbar.make(binding.root, "Неверный логин или пароль", Snackbar.LENGTH_SHORT)
-//        val params = CoordinatorLayout.LayoutParams(snackbar.view.layoutParams)
-//        params.gravity = Gravity.TOP
-//        snackbar.view.layoutParams = params
-//        snackbar.view.setBackgroundColor(Color.RED)
-//        val textView = snackbar.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
-//        textView.setTextColor(Color.WHITE)
-//        textView.setCompoundDrawablesWithIntrinsicBounds(R.drawable.icn_exclamation, 0, 0, 0)
-//
-//
-//        snackbar.show()
-//    }
 
     private fun snackBar() {
         val snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_SHORT)
