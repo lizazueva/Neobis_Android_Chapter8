@@ -28,6 +28,7 @@ class RegistrationFragment : Fragment() {
             findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
         }
 
+
         checkInput()
     }
 

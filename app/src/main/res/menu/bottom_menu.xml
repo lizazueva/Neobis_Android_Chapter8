@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/homeFragment"
+        android:icon="@drawable/icn_home"
+        android:iconTint="#D6D5DB"
+        android:title="Главная"/>
+    <item
+        android:id="@+id/walletFragment"
+        android:icon="@drawable/icn_wallet"
+        android:iconTint="#D6D5DB"
+        android:title="Кошелек"/>
+
+    <item
+        android:id="@+id/placeholder"
+        android:title=""/>
+    <item
+        android:id="@+id/chatFragment"
+        android:icon="@drawable/icn_chat"
+        android:iconTint="#D6D5DB"
+        android:title="Чаты"/>
+    <item
+        android:id="@+id/userFragment"
+        android:icon="@drawable/icn_user"
+        android:iconTint="#D6D5DB"
+        android:title="Профиль"/>
+
+</menu>
