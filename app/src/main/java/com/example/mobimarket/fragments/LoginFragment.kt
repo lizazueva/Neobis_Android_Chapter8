@@ -17,7 +17,7 @@ import com.example.mobimarket.R
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.FragmentLoginBinding
 import com.example.mobimarket.viewModel.LoginViewModel
-import com.example.mobimarket.viewModel.ViewModelProviderFactory
+import com.example.mobimarket.viewModel.ViewModelProviderFactoryLogin
 import com.google.android.material.snackbar.Snackbar
 
 
@@ -34,7 +34,7 @@ class LoginFragment : Fragment() {
         return binding.root
 
         val repository = Repository()
-        val viewModelFactory = ViewModelProviderFactory(repository)
+        val viewModelFactory = ViewModelProviderFactoryLogin(repository)
         viewModelLoginFragment = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
     }
 

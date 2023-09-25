@@ -1,6 +1,9 @@
 package com.example.mobimarket.fragments
 
+import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -33,7 +36,80 @@ class RegistrationFragment : Fragment() {
     }
 
     private fun checkInput() {
+        binding.editTextName.addTextChangedListener(inputText)
+        binding.editTextMail.addTextChangedListener(inputText)
 
+        clickButton()
+
+    }
+
+    private fun clickButton() {
+        binding.buttonEnter.setOnClickListener {
+            findNavController().navigate(R.id.action_registrationFragment_to_passwordFragment)
+        }
+    }
+
+    val inputText = object : TextWatcher{
+        override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+        }
+
+        override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+
+            var isEmailValid = false
+            var isNameValid = false
+            val buttonEnter = binding.buttonEnter
+
+            val nameInput = binding.editTextName.text.toString().trim()
+            val mailInput = binding.editTextMail.text.toString().trim()
+
+            validateEmail(mailInput)
+            validateName(nameInput)
+
+            if (binding.textInputLayoutMail.helperText == null
+                && binding.textInputLayoutName.helperText == null){
+                isEmailValid = true
+                isNameValid = true
+            }
+
+            buttonEnter.isEnabled = isEmailValid && isNameValid
+
+        }
+
+        override fun afterTextChanged(p0: Editable?) {
+        }
+
+    }
+
+    private fun validateEmail(mailInput: String) {
+
+        var isMailEmpty = mailInput.isEmpty()
+        var isMailMatches = mailInput.matches(Regex("[A-Z a-z@.]*"))
+        var isMailContains = mailInput.contains('@')&&mailInput.contains('.')
+
+        if (isMailEmpty){
+            binding.textInputLayoutMail.helperText = "Заполните это поле"
+        }else if(!isMailMatches){
+            binding.textInputLayoutMail.helperText = "Присутствуют недопустимые символы"
+        }else if (!isMailContains){
+            binding.textInputLayoutMail.helperText = "Нет специальных символов @, ."
+        }else{
+            binding.textInputLayoutMail.helperText = null
+        }
+    }
+
+    private fun validateName(nameInput: String) {
+
+        val isNameEmpty = nameInput.isEmpty()
+        val isNameMatches = nameInput.matches(Regex("[A-Za-z]*"))
+
+        if (!isNameMatches) {
+            binding.textInputLayoutName.helperText = "Присутствуют недопустимые символы"
+        } else if (isNameEmpty) {
+            binding.textInputLayoutName.helperText = "Заполните это поле"
+        } else {
+            binding.textInputLayoutName.helperText = null
+        }
     }
 
 }

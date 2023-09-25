@@ -41,6 +41,9 @@
         <action
             android:id="@+id/action_passwordFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_passwordFragment_to_registrationFragment"
+            app:destination="@id/registrationFragment" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
