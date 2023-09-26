@@ -44,8 +44,10 @@ class LoginFragment : Fragment() {
         checkInput()
 
         binding.textRegistration.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_userFragment)
         }
+
+
     }
 
     private fun checkInput() {

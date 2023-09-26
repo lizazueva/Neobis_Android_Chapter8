@@ -9,4 +9,7 @@
     <string name="text_rule">Минимальная длина — 8 символов.\n Для надежности пароль должен\n содержать буквы и цифры.</string>
     <string name="text_profile">Профиль</string>
     <string name="button_registration_full">Закончить регистрацию</string>
+    <string name="button_exit">Выйти</string>
+    <string name="button_no">Отмена</string>
+    <string name="button_delete">Удалить</string>
 </resources>
