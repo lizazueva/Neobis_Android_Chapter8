@@ -52,7 +52,14 @@
         android:id="@+id/userFragment"
         android:name="com.example.mobimarket.fragments.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_splashScreenFragment2"
+            app:destination="@id/splashScreenFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/chatFragment"
         android:name="com.example.mobimarket.fragments.ChatFragment"
@@ -68,4 +75,37 @@
         android:name="com.example.mobimarket.fragments.WalletFragment"
         android:label="fragment_wallet"
         tools:layout="@layout/fragment_wallet" />
+    <fragment
+        android:id="@+id/codeFragment"
+        android:name="com.example.mobimarket.fragments.CodeFragment"
+        android:label="fragment_code"
+        tools:layout="@layout/fragment_code" >
+        <action
+            android:id="@+id/action_codeFragment_to_editPhoneFragment"
+            app:destination="@id/editPhoneFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPhoneFragment"
+        android:name="com.example.mobimarket.fragments.EditPhoneFragment"
+        android:label="fragment_edit_phone"
+        tools:layout="@layout/fragment_edit_phone" >
+        <action
+            android:id="@+id/action_editPhoneFragment_to_editProfileFragment"
+            app:destination="@id/editProfileFragment" />
+        <action
+            android:id="@+id/action_editPhoneFragment_to_codeFragment"
+            app:destination="@id/codeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.example.mobimarket.fragments.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" >
+        <action
+            android:id="@+id/action_editProfileFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_editProfileFragment_to_editPhoneFragment"
+            app:destination="@id/editPhoneFragment" />
+    </fragment>
 </navigation>

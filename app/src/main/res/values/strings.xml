@@ -12,4 +12,11 @@
     <string name="button_exit">Выйти</string>
     <string name="button_no">Отмена</string>
     <string name="button_delete">Удалить</string>
+    <string name="text_photo">Выбрать фотографию</string>
+    <string name="editText_surname">Фамилия</string>
+    <string name="editText_login">Логин</string>
+    <string name="editText_date">Дата рождения</string>
+    <string name="add_phone">Добавить номер</string>
+    <string name="text_number">Введите номер телефона</string>
+    <string name="text_sms">Мы отправим вам СМС с кодом\n подтверждения</string>
 </resources>
