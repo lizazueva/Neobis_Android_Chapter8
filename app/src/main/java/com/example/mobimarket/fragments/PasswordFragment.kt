@@ -76,7 +76,7 @@ class PasswordFragment : Fragment() {
                 buttonFurther.text = "Готово"
             } else if (buttonFurther.text == "Готово") {
                 buttonFurther.setOnClickListener {
-//нужный фрагмент
+                    findNavController().navigate(R.id.action_passwordFragment_to_userFragment)
                 }
             }
         }

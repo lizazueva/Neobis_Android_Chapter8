@@ -7,4 +7,6 @@
     <string name="text_registration">Зарегистрироваться</string>
     <string name="text_registration_screen">Регистрация</string>
     <string name="text_rule">Минимальная длина — 8 символов.\n Для надежности пароль должен\n содержать буквы и цифры.</string>
+    <string name="text_profile">Профиль</string>
+    <string name="button_registration_full">Закончить регистрацию</string>
 </resources>
