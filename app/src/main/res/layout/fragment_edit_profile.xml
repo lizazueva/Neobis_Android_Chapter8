@@ -42,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:clickable="false"
                 android:src="@drawable/ic_done"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -168,8 +169,9 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="20dp"
                         android:hint="@string/editText_date"
+
                         android:textColorHint="@color/grey"
-                        tools:ignore="MissingConstraints,TouchTargetSizeCheck"
+                        tools:ignore="MissingClass,MissingConstraints,TouchTargetSizeCheck"
                         android:background="@android:color/transparent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -248,6 +250,7 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="20dp"
                         android:hint="Почта"
+                        android:enabled="false"
                         android:inputType="textEmailAddress"
                         android:textColorHint="@color/grey"
                         tools:ignore="MissingConstraints,TouchTargetSizeCheck"

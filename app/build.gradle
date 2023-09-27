@@ -90,4 +90,6 @@ dependencies {
     //pinView
     implementation 'io.github.chaosleung:pinview:1.4.4'
 
+//    implementation 'com.github.pinball83:masked-edittext:1.0.4'
+
 }
