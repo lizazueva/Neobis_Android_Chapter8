@@ -44,7 +44,10 @@ class LoginFragment : Fragment() {
         checkInput()
 
         binding.textRegistration.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_userFragment)
+            findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+
+//для теста
+//            findNavController().navigate(R.id.action_loginFragment_to_userFragment)
         }
 
 
@@ -62,7 +65,6 @@ class LoginFragment : Fragment() {
         binding.buttonEnter.setOnClickListener {
             val name = binding.editTextName.text.toString().trim()
             val password = binding.editTextPassword.text.toString().trim()
-            snackBar()
 
 
         }
@@ -93,7 +95,7 @@ class LoginFragment : Fragment() {
         val snackbarView = snackbar.view
         val snackbarLayout = snackbarView as Snackbar.SnackbarLayout
 
-        val layoutParams = snackbarLayout.layoutParams as FrameLayout.LayoutParams
+        val layoutParams = snackbarLayout.layoutParams as CoordinatorLayout.LayoutParams
         layoutParams.gravity = Gravity.TOP
 
         snackbarLayout.setBackgroundColor(Color.TRANSPARENT)

@@ -160,7 +160,7 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/editText_login" />
 
-                    <EditText
+                    <com.github.pinball83.maskededittext.MaskedEditText
                         android:id="@+id/editText_date"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -169,7 +169,8 @@
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="20dp"
                         android:hint="@string/editText_date"
-
+                        android:inputType="date"
+                        app:mask="ДД.ММ.ГГГГ"
                         android:textColorHint="@color/grey"
                         tools:ignore="MissingClass,MissingConstraints,TouchTargetSizeCheck"
                         android:background="@android:color/transparent"
