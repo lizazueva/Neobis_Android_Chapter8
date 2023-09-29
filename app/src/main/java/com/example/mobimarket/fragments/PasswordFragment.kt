@@ -22,6 +22,8 @@ class PasswordFragment : Fragment() {
 
     private lateinit var binding: FragmentPasswordBinding
     lateinit var viewModelPasswordFragment: PasswordViewModel
+    private var isNextButtonClicked = false
+
 
 
     override fun onCreateView(
@@ -69,13 +71,16 @@ class PasswordFragment : Fragment() {
     private fun сlickButtonFurther() {
         val buttonFurther = binding.buttonFurther
         buttonFurther.setOnClickListener {
-            if (buttonFurther.text == "Далее") {
+            if (!isNextButtonClicked) {
                 binding.textInputLayoutRepeatPassword.isEnabled = true
                 binding.editTextRepeatPassword.requestFocus()
                 buttonFurther.isEnabled = false
                 buttonFurther.text = "Готово"
-            } else if (buttonFurther.text == "Готово") {
-                buttonFurther.setOnClickListener {
+                isNextButtonClicked = true
+            } else {
+                val passwordRepeatInput = binding.editTextRepeatPassword.text.toString().trim()
+                validatePasswordRepeat(passwordRepeatInput)
+                if (binding.textInputLayoutRepeatPassword.helperText == null) {
                     findNavController().navigate(R.id.action_passwordFragment_to_userFragment)
                 }
             }
@@ -94,30 +99,17 @@ class PasswordFragment : Fragment() {
 
         override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             var isPasswordValid = false
-            var isPasswordRepeatValid = false
             val buttonFurther = binding.buttonFurther
 
             val passwordInput = binding.editTextPassword.text.toString().trim()
-            val passwordRepeatInput = binding.editTextRepeatPassword.text.toString().trim()
 
             validatePassword(passwordInput)
-            binding.editTextRepeatPassword.setOnFocusChangeListener { _, hasFocus ->
-                if (hasFocus) {
-                    validatePasswordRepeat(passwordRepeatInput)
-                }
-            }
 
-            if(binding.textInputLayoutPassword.helperText == null
-                && binding.textInputLayoutRepeatPassword.helperText == null){
+            if(binding.textInputLayoutPassword.helperText == null){
                 isPasswordValid = true
-                isPasswordRepeatValid  = true
             }
 
-            if (buttonFurther.text =="Далее"){
                 buttonFurther.isEnabled = isPasswordValid
-            }else{
-                buttonFurther.isEnabled = isPasswordRepeatValid
-            }
         }
 
         override fun afterTextChanged(p0: Editable?) {

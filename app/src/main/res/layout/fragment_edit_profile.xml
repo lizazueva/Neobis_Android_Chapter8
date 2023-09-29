@@ -170,7 +170,7 @@
                         android:layout_marginBottom="20dp"
                         android:hint="@string/editText_date"
                         android:inputType="date"
-                        app:mask="ДД.ММ.ГГГГ"
+                        app:mask="8 (***) *** **-**"
                         android:textColorHint="@color/grey"
                         tools:ignore="MissingClass,MissingConstraints,TouchTargetSizeCheck"
                         android:background="@android:color/transparent"
