@@ -3,12 +3,14 @@ package com.example.mobimarket
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobimarket.databinding.ActivityMainBinding
 import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -39,5 +41,26 @@ class MainActivity : AppCompatActivity() {
         }
 
         bottomNav.setupWithNavController(navController)
+
+        bottomNav.setOnItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.homeFragment -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
+                }
+                R.id.userFragment -> {
+                    navController.navigate(R.id.userFragment)
+                    true
+                }
+                else -> false
+            }
+        }
+
+
+        binding.floating.setOnClickListener {
+            navController.navigate(R.id.addFragment)
+        }
     }
+
+
 }

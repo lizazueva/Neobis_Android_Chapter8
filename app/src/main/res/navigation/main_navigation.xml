@@ -108,4 +108,14 @@
             android:id="@+id/action_editProfileFragment_to_editPhoneFragment"
             app:destination="@id/editPhoneFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.example.mobimarket.fragments.AddFragment"
+        android:label="fragment_add"
+        tools:layout="@layout/fragment_add" />
+    <fragment
+        android:id="@+id/productFragment"
+        android:name="com.example.mobimarket.fragments.ProductFragment"
+        android:label="fragment_product"
+        tools:layout="@layout/fragment_product" />
 </navigation>
