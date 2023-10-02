@@ -20,4 +20,6 @@
     <string name="text_number">Введите номер телефона</string>
     <string name="text_sms">Мы отправим вам СМС с кодом\n подтверждения</string>
     <string name="editText_phone">+000 000 000 000</string>
+    <string name="text_cancel">Вы действительно хотите\n отменить добавление товара?</string>
+    <string name="text_exactly_exit">Вы действительно хотите выйти\n с приложения?</string>
 </resources>
