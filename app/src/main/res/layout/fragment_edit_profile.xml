@@ -222,7 +222,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:layout_marginBottom="20dp"
-                        android:hint="0(000)000 000"
+                        android:hint="@string/editText_phone"
                         android:enabled="false"
                         android:textColorHint="@color/grey"
                         tools:ignore="MissingConstraints,TouchTargetSizeCheck"

@@ -35,10 +35,10 @@
         android:layout_marginEnd="16dp"
         android:background="@android:color/transparent"
         android:gravity="center_horizontal"
-        android:hint="0(000)000 000"
+        android:hint="@string/editText_phone"
         android:textColorHint="@color/grey"
-        android:textSize="40sp"
-
+        android:textSize="35sp"
+        android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_sms"

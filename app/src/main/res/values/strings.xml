@@ -19,4 +19,5 @@
     <string name="add_phone">Добавить номер</string>
     <string name="text_number">Введите номер телефона</string>
     <string name="text_sms">Мы отправим вам СМС с кодом\n подтверждения</string>
+    <string name="editText_phone">+000 000 000 000</string>
 </resources>
