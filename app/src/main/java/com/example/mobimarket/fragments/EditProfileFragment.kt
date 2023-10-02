@@ -13,6 +13,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
+import com.example.mobimarket.DateMask
 import com.example.mobimarket.R
 import com.example.mobimarket.databinding.FragmentEditProfileBinding
 import java.text.SimpleDateFormat
@@ -46,6 +47,7 @@ class EditProfileFragment : Fragment() {
         }
 
         binding.imageDone.setOnClickListener {
+            //сохранение данных
             findNavController().navigate(R.id.action_editProfileFragment_to_userFragment)
         }
 
@@ -62,21 +64,14 @@ class EditProfileFragment : Fragment() {
         binding.editTextName.addTextChangedListener(inputText)
         binding.editTextSurname.addTextChangedListener(inputText)
         binding.editTextLogin.addTextChangedListener(inputText)
-        binding.editTextDate.addTextChangedListener(inputText)
-
-        checkButton()
-
-    }
-
-    private fun checkButton() {
+        val editTextDate = binding.editTextDate
+        val dateMask = DateMask(editTextDate)
+        editTextDate.addTextChangedListener(dateMask)
 
     }
+
 
     val inputText = object : TextWatcher {
-
-        private var current = ""
-        private val ddmmyyyy = "DDMMYYYY"
-        private val cal = Calendar.getInstance()
 
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
         }
@@ -120,10 +115,10 @@ class EditProfileFragment : Fragment() {
 
     private fun validateDate(dateInput: String) {
         val isDateEmpty = dateInput.isEmpty()
-        val isDateMatches = dateInput.matches(Regex("[1-9.]*"))
+        val isDateMatches = dateInput.matches(Regex("\\\\d{2}\\\\.\\\\d{2}\\\\.\\\\d{4}"))
 
-        if (!isDateMatches) {
-            binding.editTextDate.error = "Присутствуют недопустимые символы"
+        if (isDateMatches) {
+            binding.editTextDate.error = "Неверный формат даты"
         } else if (isDateEmpty) {
             binding.editTextDate.error = "Заполните это поле"
         } else {

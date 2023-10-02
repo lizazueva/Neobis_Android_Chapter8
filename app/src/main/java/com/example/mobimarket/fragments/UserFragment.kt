@@ -34,6 +34,14 @@ class UserFragment : Fragment() {
             findNavController().navigate(R.id.action_userFragment_to_editProfileFragment)
         }
 
+        binding.imageEdit.setOnClickListener {
+            findNavController().navigate(R.id.action_userFragment_to_editProfileFragment)
+        }
+
+        binding.imageMyProducts.setOnClickListener {
+            findNavController().navigate(R.id.action_userFragment_to_productFragment)
+        }
+
         binding.imageLogout.setOnClickListener {
             callDialog()
         }
