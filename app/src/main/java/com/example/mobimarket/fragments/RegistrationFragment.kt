@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.databinding.FragmentRegistrationBinding
+import com.example.mobimarket.model.RegistrationRequest
 
 class RegistrationFragment : Fragment() {
 
@@ -31,6 +32,13 @@ class RegistrationFragment : Fragment() {
             findNavController().navigate(R.id.action_registrationFragment_to_loginFragment)
         }
 
+        binding.buttonEnter.setOnClickListener {
+            var email = binding.editTextMail.text.toString().trim()
+            var username = binding.editTextName.text.toString().trim()
+            val action = RegistrationFragmentDirections.actionRegistrationFragmentToPasswordFragment(email, username)
+            findNavController().navigate(action)
+        }
+
 
         checkInput()
     }
@@ -39,15 +47,9 @@ class RegistrationFragment : Fragment() {
         binding.editTextName.addTextChangedListener(inputText)
         binding.editTextMail.addTextChangedListener(inputText)
 
-        clickButton()
-
     }
 
-    private fun clickButton() {
-        binding.buttonEnter.setOnClickListener {
-            findNavController().navigate(R.id.action_registrationFragment_to_passwordFragment)
-        }
-    }
+
 
     val inputText = object : TextWatcher{
         override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

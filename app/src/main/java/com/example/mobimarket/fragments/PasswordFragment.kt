@@ -10,18 +10,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.FragmentPasswordBinding
-import com.example.mobimarket.viewModel.PasswordViewModel
-import com.example.mobimarket.viewModel.ViewModelProviderFactoryPassword
+import com.example.mobimarket.utils.Resource
+import com.example.mobimarket.viewModel.RegistrationViewModel
+import com.example.mobimarket.viewModel.ViewModelProviderFactoryRegistration
 
 class PasswordFragment : Fragment() {
 
     private lateinit var binding: FragmentPasswordBinding
-    lateinit var viewModelPasswordFragment: PasswordViewModel
+    lateinit var viewModelPasswordFragment: RegistrationViewModel
     private var isNextButtonClicked = false
 
 
@@ -31,11 +33,11 @@ class PasswordFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding= FragmentPasswordBinding.inflate(inflater, container, false)
+        val repository = Repository ()
+        val viewModelFactory = ViewModelProviderFactoryRegistration(repository)
+        viewModelPasswordFragment = ViewModelProvider(this, viewModelFactory).get(RegistrationViewModel::class.java)
         return binding.root
 
-        val repository = Repository ()
-        val viewModelFactory = ViewModelProviderFactoryPassword(repository)
-        viewModelPasswordFragment = ViewModelProvider(this, viewModelFactory).get(PasswordViewModel::class.java)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -46,26 +48,48 @@ class PasswordFragment : Fragment() {
         }
 
         binding.imageEye.setOnClickListener {
-            val editTextPassword = binding.editTextPassword
-            val editTextRepeatPassword = binding.editTextRepeatPassword
-            if (editTextPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                && editTextRepeatPassword.inputType ==InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ) {
-                editTextPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-                editTextRepeatPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-            } else {
-                editTextPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-                editTextRepeatPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
-
-            }
-            editTextPassword.requestFocus()
-            editTextPassword.setSelection(editTextPassword.text?.length ?: 0)
-            editTextRepeatPassword.requestFocus()
-            editTextRepeatPassword.setSelection(editTextRepeatPassword.text?.length ?: 0)
+            eye()
         }
 
         checkInput()
         сlickButtonFurther()
 
+    }
+
+    private fun observe() {
+        viewModelPasswordFragment.userSaved.observe(viewLifecycleOwner, {userSaved->
+            when(userSaved) {
+                is Resource.Success -> {
+                    Toast.makeText(requireContext(), "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
+                    findNavController().navigate(R.id.action_passwordFragment_to_userFragment)
+                }
+
+                is Resource.Error -> {
+                    Toast.makeText(requireContext(), "Пользователь не зарегестрирован", Toast.LENGTH_SHORT).show()
+                }
+
+                is Resource.Loading -> {
+                }
+            }
+        })
+    }
+
+    private fun eye() {
+        val editTextPassword = binding.editTextPassword
+        val editTextRepeatPassword = binding.editTextRepeatPassword
+        if (editTextPassword.inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            && editTextRepeatPassword.inputType ==InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD ) {
+            editTextPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+            editTextRepeatPassword.inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
+        } else {
+            editTextPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+            editTextRepeatPassword.inputType = InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD
+
+        }
+        editTextPassword.requestFocus()
+        editTextPassword.setSelection(editTextPassword.text?.length ?: 0)
+        editTextRepeatPassword.requestFocus()
+        editTextRepeatPassword.setSelection(editTextRepeatPassword.text?.length ?: 0)
     }
 
     private fun сlickButtonFurther() {
@@ -78,10 +102,14 @@ class PasswordFragment : Fragment() {
                 buttonFurther.text = "Готово"
                 isNextButtonClicked = true
             } else {
-                val passwordRepeatInput = binding.editTextRepeatPassword.text.toString().trim()
-                validatePasswordRepeat(passwordRepeatInput)
+                val password = binding.editTextPassword.text.toString().trim()
+                val password2 = binding.editTextRepeatPassword.text.toString().trim()
+                val email = arguments?.getString("email")!!
+                val username = arguments?.getString("username")!!
+                validatePasswordRepeat(password2)
                 if (binding.textInputLayoutRepeatPassword.helperText == null) {
-                    findNavController().navigate(R.id.action_passwordFragment_to_userFragment)
+                    viewModelPasswordFragment.newUser(username, email, password, password2)
+                    observe()
                 }
             }
         }

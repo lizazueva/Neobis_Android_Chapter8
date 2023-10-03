@@ -2,6 +2,6 @@ package com.example.mobimarket.utils
 
 class Constants {
     companion object{
-        const val BASE_URL = "https://muha-backender.org.kg"
+        const val BASE_URL = "https://muha-backender.org.kg/mobi/"
     }
 }
