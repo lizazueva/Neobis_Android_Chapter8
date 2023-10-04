@@ -1,6 +1,5 @@
 package com.example.mobimarket.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -11,7 +10,6 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.databinding.FragmentRegistrationBinding
-import com.example.mobimarket.model.RegistrationRequest
 
 class RegistrationFragment : Fragment() {
 

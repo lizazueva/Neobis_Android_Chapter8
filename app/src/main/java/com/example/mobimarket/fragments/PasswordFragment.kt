@@ -27,7 +27,6 @@ class PasswordFragment : Fragment() {
     private var isNextButtonClicked = false
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

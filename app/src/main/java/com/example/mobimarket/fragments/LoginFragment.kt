@@ -9,13 +9,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.FragmentLoginBinding
+import com.example.mobimarket.utils.Resource
 import com.example.mobimarket.viewModel.LoginViewModel
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryLogin
 import com.google.android.material.snackbar.Snackbar
@@ -31,11 +31,10 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
-
         val repository = Repository()
         val viewModelFactory = ViewModelProviderFactoryLogin(repository)
         viewModelLoginFragment = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,8 +64,23 @@ class LoginFragment : Fragment() {
         binding.buttonEnter.setOnClickListener {
             val name = binding.editTextName.text.toString().trim()
             val password = binding.editTextPassword.text.toString().trim()
+            viewModelLoginFragment.login(name, password)
+            login()
+        }
+    }
 
-
+    private fun login() {
+        viewModelLoginFragment.loginResult.observe(viewLifecycleOwner) { loginResult ->
+            when (loginResult) {
+                is Resource.Success -> {
+                    findNavController().navigate(R.id.action_loginFragment_to_userFragment)
+                }
+                is Resource.Error -> {
+                    snackBar()
+                }
+                is Resource.Loading -> {
+                }
+            }
         }
     }
 

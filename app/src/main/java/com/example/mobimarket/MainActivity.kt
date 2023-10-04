@@ -42,19 +42,19 @@ class MainActivity : AppCompatActivity() {
 
         bottomNav.setupWithNavController(navController)
 
-        bottomNav.setOnItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.homeFragment -> {
-                    navController.navigate(R.id.homeFragment)
-                    true
-                }
-                R.id.userFragment -> {
-                    navController.navigate(R.id.userFragment)
-                    true
-                }
-                else -> false
-            }
-        }
+//        bottomNav.setOnItemSelectedListener { menuItem ->
+//            when (menuItem.itemId) {
+//                R.id.homeFragment -> {
+//                    navController.navigate(R.id.homeFragment)
+//                    true
+//                }
+//                R.id.userFragment -> {
+//                    navController.navigate(R.id.userFragment)
+//                    true
+//                }
+//                else -> false
+//            }
+//        }
 
 
         binding.floating.setOnClickListener {

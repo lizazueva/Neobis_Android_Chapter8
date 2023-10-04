@@ -9,21 +9,31 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.mobimarket.R
+import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.AlertDialogExitBinding
 import com.example.mobimarket.databinding.FragmentUserBinding
+import com.example.mobimarket.viewModel.LoginViewModel
+import com.example.mobimarket.viewModel.UserViewModel
+import com.example.mobimarket.viewModel.ViewModelProviderFactoryLogin
 
 
 class UserFragment : Fragment() {
 
     private lateinit var binding: FragmentUserBinding
+    lateinit var viewModelLoginFragment: LoginViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUserBinding.inflate(inflater, container, false)
+        val repository = Repository()
+        val viewModelFactory = ViewModelProviderFactoryLogin(repository)
+        viewModelLoginFragment = ViewModelProvider(this, viewModelFactory).get(LoginViewModel::class.java)
         return binding.root
     }
 
@@ -45,6 +55,12 @@ class UserFragment : Fragment() {
         binding.imageLogout.setOnClickListener {
             callDialog()
         }
+
+        setData()
+    }
+
+    private fun setData() {
+
     }
 
     private fun callDialog() {
