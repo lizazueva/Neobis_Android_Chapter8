@@ -3,58 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/splashScreenFragment2">
-    <fragment
-        android:id="@+id/splashScreenFragment2"
-        android:name="com.example.mobimarket.fragments.SplashScreenFragment"
-        android:label="SplashScreenFragment" >
-        <action
-            android:id="@+id/action_splashScreenFragment2_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.mobimarket.fragments.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-        <action
-            android:id="@+id/action_loginFragment_to_userFragment"
-            app:destination="@id/userFragment" />
-
-    </fragment>
-    <fragment
-        android:id="@+id/registrationFragment"
-        android:name="com.example.mobimarket.fragments.RegistrationFragment"
-        android:label="fragment_registration"
-        tools:layout="@layout/fragment_registration" >
-        <action
-            android:id="@+id/action_registrationFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_registrationFragment_to_passwordFragment"
-            app:destination="@id/passwordFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/passwordFragment"
-        android:name="com.example.mobimarket.fragments.PasswordFragment"
-        android:label="fragment_password"
-        tools:layout="@layout/fragment_password" >
-        <action
-            android:id="@+id/action_passwordFragment_to_userFragment"
-            app:destination="@id/userFragment" />
-        <action
-            android:id="@+id/action_passwordFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
-        <argument
-            android:name="email"
-            app:argType="string" />
-        <argument
-            android:name="username"
-            app:argType="string" />
-    </fragment>
+    app:startDestination="@id/userFragment">
     <fragment
         android:id="@+id/userFragment"
         android:name="com.example.mobimarket.fragments.UserFragment"
@@ -63,9 +12,6 @@
         <action
             android:id="@+id/action_userFragment_to_editProfileFragment"
             app:destination="@id/editProfileFragment" />
-        <action
-            android:id="@+id/action_userFragment_to_splashScreenFragment2"
-            app:destination="@id/splashScreenFragment2" />
         <action
             android:id="@+id/action_userFragment_to_productFragment"
             app:destination="@id/productFragment" />

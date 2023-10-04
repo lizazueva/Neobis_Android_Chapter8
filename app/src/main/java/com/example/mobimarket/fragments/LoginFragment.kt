@@ -45,8 +45,6 @@ class LoginFragment : Fragment() {
         binding.textRegistration.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
 
-//для теста
-//            findNavController().navigate(R.id.action_loginFragment_to_userFragment)
         }
 
 
@@ -73,7 +71,7 @@ class LoginFragment : Fragment() {
         viewModelLoginFragment.loginResult.observe(viewLifecycleOwner) { loginResult ->
             when (loginResult) {
                 is Resource.Success -> {
-                    findNavController().navigate(R.id.action_loginFragment_to_userFragment)
+                    findNavController().navigate(R.id.userFragment)
                 }
                 is Resource.Error -> {
                     snackBar()

@@ -60,7 +60,7 @@ class PasswordFragment : Fragment() {
             when(userSaved) {
                 is Resource.Success -> {
                     Toast.makeText(requireContext(), "Регистрация прошла успешно", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_passwordFragment_to_userFragment)
+                    findNavController().navigate(R.id.userFragment)
                 }
 
                 is Resource.Error -> {

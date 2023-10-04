@@ -79,7 +79,7 @@ class UserFragment : Fragment() {
 
         dialogBinding.buttonExit.setOnClickListener {
             dialog.dismiss()
-            findNavController().navigate(R.id.action_userFragment_to_splashScreenFragment2)
+            findNavController().navigate(R.id.splashScreenFragment)
         }
     }
 }
