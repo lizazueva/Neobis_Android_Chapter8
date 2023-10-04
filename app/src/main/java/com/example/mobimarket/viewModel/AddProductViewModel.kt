@@ -74,7 +74,7 @@ class AddProductViewModel(val repository: Repository, val context: Context): Vie
     }
 
     private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part {
-        val file: File? = LocalProvider(context).getFileFromUri(fileUri)
+        val file: File? = LocalProvider(context).getFile(context,fileUri)
         val requestFile: RequestBody? = file?.let {
             RequestBody.create(
                 context.contentResolver.getType(fileUri)?.toMediaTypeOrNull(), it
