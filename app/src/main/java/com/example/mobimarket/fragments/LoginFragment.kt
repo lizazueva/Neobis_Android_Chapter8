@@ -1,5 +1,6 @@
 package com.example.mobimarket.fragments
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.mobimarket.MainActivity
 import com.example.mobimarket.R
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.FragmentLoginBinding
@@ -71,7 +73,7 @@ class LoginFragment : Fragment() {
         viewModelLoginFragment.loginResult.observe(viewLifecycleOwner) { loginResult ->
             when (loginResult) {
                 is Resource.Success -> {
-                    findNavController().navigate(R.id.userFragment)
+                    startActivity(Intent(requireContext(), MainActivity::class.java))
                 }
                 is Resource.Error -> {
                     snackBar()

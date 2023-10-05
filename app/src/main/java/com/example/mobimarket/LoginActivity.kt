@@ -10,15 +10,13 @@ class LoginActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
 
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-//        val navHostFragment = supportFragmentManager.findFragmentById(R.id.login_fragment) as NavHostFragment
-//        val navController = navHostFragment.navController
-//        navController.navigate(R.id.splashScreenFragment)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.login_fragment) as NavHostFragment
+        val navController = navHostFragment.navController
 
 
     }
