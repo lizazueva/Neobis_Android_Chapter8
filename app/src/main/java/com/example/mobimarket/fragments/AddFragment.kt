@@ -65,13 +65,13 @@ class AddFragment : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun addProduct() {
-        val images = photos
+        val image = photos
         val title = binding.editTextName.text.toString()
         val description = binding.editTextDescrip.text.toString()
         val more_info = binding.editTextDetail.text.toString()
         val price = binding.editTextPrice.text.toString()
 
-            viewModelAddFragment.createProduct(images, title, price, description, more_info,
+            viewModelAddFragment.createProduct(image, title, price, description, more_info,
                 onSuccess = {
                     findNavController().navigate(R.id.action_addFragment_to_productFragment)
                     snackBar()

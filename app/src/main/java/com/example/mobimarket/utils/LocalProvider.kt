@@ -1,83 +1,49 @@
 package com.example.mobimarket.utils
 
+import android.content.ContentResolver
 import android.content.Context
 import android.net.Uri
-import android.util.Log
-import android.util.Log.DEBUG
+import android.provider.MediaStore
+
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.io.InputStream
+    object LocalProvider {
+        fun getFile(context: Context, uri: Uri): File? {
+            val contentResolver: ContentResolver = context.contentResolver
+            var fileName: String? = null
 
-class LocalProvider(private val context: Context) {
-
-    val TAG = "FileUtils"
-
-    // Сохранить файл из потока данных
-    fun saveFile(fileName: String, inputStream: InputStream): File? {
-        val file = File(context.filesDir, fileName)
-        return try {
-            file.outputStream().use { output ->
-                inputStream.copyTo(output)
-                file
+            val projection = arrayOf(MediaStore.MediaColumns.DISPLAY_NAME)
+            contentResolver.query(uri, projection, null, null, null)?.use { cursor ->
+                if (cursor.moveToFirst()) {
+                    val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME)
+                    fileName = cursor.getString(columnIndex)
+                }
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
 
-    // Получить Uri файла по его имени
-    fun getFileUri(fileName: String): Uri {
-        val file = File(context.filesDir, fileName)
-        return Uri.fromFile(file)
-    }
-
-    // Получить файл по его Uri
-    fun getFileFromUri(uri: Uri): File? {
-        return try {
-            val filePath = uri.path
-            if (filePath != null) {
-                File(filePath)
-            } else {
-                null
+            if (fileName.isNullOrEmpty()) {
+                fileName = "temp_image.jpg"
             }
-        } catch (e: Exception) {
-            e.printStackTrace()
-            null
-        }
-    }
 
-    fun getFile(context: Context, uri: Uri): File? {
-        if (uri != null) {
-            val path = getPath(context, uri)
-            if (path != null && isLocal(path)) {
-                return File(path)
+            val file = File(context.filesDir, fileName)
+            try {
+                val inputStream: InputStream? = contentResolver.openInputStream(uri)
+                if (inputStream != null) {
+                    val outputStream = FileOutputStream(file)
+                    val buffer = ByteArray(4 * 1024) // 4k buffer
+                    var read: Int
+                    while (inputStream.read(buffer).also { read = it } != -1) {
+                        outputStream.write(buffer, 0, read)
+                    }
+                    outputStream.flush()
+                    outputStream.close()
+                    inputStream.close()
+                    return file
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
+            return null
         }
-        return null
-    }
-
-    fun getPath(context: Context, uri: Uri): String {
-        val absolutePath = getLocalPath(context, uri)
-        return absolutePath ?: uri.toString()
-    }
-
-    private fun getLocalPath(context: Context, uri: Uri): String? {
-        if (DEBUG==3) {
-            Log.d(
-                TAG + " File -",
-                "Authority: ${uri.authority}, " +
-                        "Fragment: ${uri.fragment}, " +
-                        "Port: ${uri.port}, " +
-                        "Query: ${uri.query}, " +
-                        "Scheme: ${uri.scheme}, " +
-                        "Host: ${uri.host}, " +
-                        "Segments: ${uri.pathSegments.toString()}"
-            )
-        }
-        return null
-    }
-
-    fun isLocal(url: String?): Boolean {
-        return url != null && !url.startsWith("http://") && !url.startsWith("https://")
-    }
 }

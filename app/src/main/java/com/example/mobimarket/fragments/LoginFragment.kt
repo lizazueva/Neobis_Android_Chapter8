@@ -70,7 +70,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun login() {
-        viewModelLoginFragment.loginResult.observe(viewLifecycleOwner) { loginResult ->
+        viewModelLoginFragment.token.observe(viewLifecycleOwner) { loginResult ->
             when (loginResult) {
                 is Resource.Success -> {
                     startActivity(Intent(requireContext(), MainActivity::class.java))

@@ -1,18 +1,20 @@
 package com.example.mobimarket.viewModel
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.net.Uri
 import android.util.Log
+import android.webkit.MimeTypeMap
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.model.AddProductResponse
 import com.example.mobimarket.utils.LocalProvider
-import okhttp3.MediaType
 import retrofit2.Callback
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
@@ -23,7 +25,7 @@ import java.io.File
 class AddProductViewModel(val repository: Repository, val context: Context): ViewModel() {
 
     fun createProduct(
-        images: List<Uri>,
+        image: List<Uri>,
         title: String,
         price: String,
         shortDesc: String,
@@ -32,21 +34,24 @@ class AddProductViewModel(val repository: Repository, val context: Context): Vie
         onError: (String?) -> Unit
     ) {
 
-//        val fileToSend = prepareFilePart("product_file", images)
+//        var imageParts = mutableListOf<MultipartBody.Part>()
+//
+//        image.forEachIndexed { index, imageUri ->
+//            val filePart: MultipartBody.Part? = prepareFilePart("image", imageUri)
+//            filePart?.let { imageParts.add(it) }
+//        }
 
-        val imageParts = images.mapIndexed { index, uri ->
-            prepareFilePart("image[$index]", uri)
+        val imageParts = mutableListOf<MultipartBody.Part>()
+
+        image.forEachIndexed { _, image ->
+            val file: File? = LocalProvider.getFile(context, image)
+            val requestBody = file?.asRequestBody("image/*".toMediaTypeOrNull())
+            val imagePart = requestBody?.let {
+                MultipartBody.Part.createFormData("image", file.name, it)
+            }
+            imagePart?.let { imageParts.add(it) }
         }
 
-
-//        images.forEachIndexed { _, imageUri ->
-//            val file: File? = prepareFilePart("product_file",imageUri)
-//            if (file != null) {
-//                val requestBody = file.asRequestBody("image/*".toMediaTypeOrNull())
-//                val imagePart = MultipartBody.Part.createFormData("images", file.name, requestBody)
-//                imageParts.add(imagePart)
-//            }
-//        }
 
         val titlePart = title.toRequestBody("text/plain".toMediaTypeOrNull())
         val pricePart = price.toRequestBody("text/plain".toMediaTypeOrNull())
@@ -73,16 +78,43 @@ class AddProductViewModel(val repository: Repository, val context: Context): Vie
             })
     }
 
-    private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part {
-        val file: File? = LocalProvider(context).getFile(context,fileUri)
-        val requestFile: RequestBody? = file?.let {
-            RequestBody.create(
-                context.contentResolver.getType(fileUri)?.toMediaTypeOrNull(), it
-            )
-        }
-        return requestFile?.let { MultipartBody.Part.createFormData(partName, file.name, it) }
-            ?: MultipartBody.Part.createFormData(partName, "")
-    }
+//    private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part? {
+//        val context = context.applicationContext
+//        val contentResolver = context.contentResolver
+//
+//        val inputStream = contentResolver.openInputStream(fileUri)
+//        inputStream?.use { input ->
+//            val tempFile = File(context.cacheDir, "temp_image_file")
+//            tempFile.deleteOnExit()
+//            tempFile.outputStream().use { output ->
+//                input.copyTo(output)
+//            }
+//            val requestBody = tempFile.asRequestBody("image/*".toMediaTypeOrNull())
+//            return MultipartBody.Part.createFormData(partName, tempFile.name, requestBody)
+//        }
+//        return null
+//    }
+
+
+
+//    private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part? {
+//        val context = context.applicationContext
+//        val contentResolver = context.contentResolver
+//
+//        val inputStream = contentResolver.openInputStream(fileUri)
+//        inputStream?.use { input ->
+//            val tempFile = File(context.cacheDir, "temp_image_file")
+//            tempFile.deleteOnExit()
+//            tempFile.outputStream().use { output ->
+//                input.copyTo(output)
+//            }
+//            val fileExtension = MimeTypeMap.getFileExtensionFromUrl(fileUri.toString())
+//            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension)
+//            val requestBody = tempFile.asRequestBody(mimeType?.toMediaTypeOrNull())
+//            return MultipartBody.Part.createFormData(partName, tempFile.name, requestBody)
+//        }
+//        return null
+//    }
 
 
     class ViewModelProviderFactoryAddProduct(
@@ -97,3 +129,14 @@ class AddProductViewModel(val repository: Repository, val context: Context): Vie
         }
     }
 }
+
+//private fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part {
+//        val file: File? = LocalProvider(context).getFile(context,fileUri)
+//        val requestFile: RequestBody? = file?.let {
+//            RequestBody.create(
+//                context.contentResolver.getType(fileUri)?.toMediaTypeOrNull(), it
+//            )
+//        }
+//        return requestFile?.let { MultipartBody.Part.createFormData(partName, file.name, it) }
+//            ?: MultipartBody.Part.createFormData(partName, "")
+//    }

@@ -24,11 +24,11 @@ interface Api {
 
     @Multipart
     @POST("products/create_product/")
-    fun productAdd(@Part images: List<MultipartBody.Part>,
-                      @Part("title") title: RequestBody,
-                      @Part("price") price: RequestBody,
-                      @Part("description") shortDesc: RequestBody,
-                      @Part("more_info") fullDesc: RequestBody): Call<AddProductResponse>
+    fun productAdd(@Part image: List<MultipartBody.Part>,
+                   @Part("title") title: RequestBody,
+                   @Part("price") price: RequestBody,
+                   @Part("description") shortDesc: RequestBody,
+                   @Part("more_info") fullDesc: RequestBody): Call<AddProductResponse>
 
 
 }

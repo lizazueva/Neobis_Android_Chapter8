@@ -10,16 +10,17 @@ import com.example.mobimarket.api.Repository
 import com.example.mobimarket.model.LoginRequest
 import com.example.mobimarket.model.LoginResponse
 import com.example.mobimarket.utils.Resource
+import com.example.mobimarket.utils.Utils
 import kotlinx.coroutines.launch
 
 class LoginViewModel (val repository: Repository): ViewModel() {
 
-    private val _loginResult: MutableLiveData<Resource<LoginResponse>> = MutableLiveData()
-    val loginResult: LiveData<Resource<LoginResponse>>
-        get() = _loginResult
+    private val _token: MutableLiveData<Resource<String>> = MutableLiveData()
+    val token: LiveData<Resource<String>>
+        get() = _token
 
-    private fun loginUser(response: LoginResponse) {
-        _loginResult.postValue(Resource.Success(response))
+    private fun saveToken(response: String) {
+        _token.postValue(Resource.Success(response))
     }
     fun login(username: String, password: String) {
         viewModelScope.launch {
@@ -28,15 +29,18 @@ class LoginViewModel (val repository: Repository): ViewModel() {
                 val response = repository.login(loginRequest)
                 if (response.isSuccessful) {
                     val loginResponse = response.body()
-                    loginResponse?.let{loginUser(loginResponse)}
+                    loginResponse?.access?.let { saveToken(it) }
+                    if (loginResponse != null) {
+                        Utils.access_token = loginResponse.access
+                    }
                     Log.d("Registration", "Successful: $loginResponse")
 
                 }else{
-                    _loginResult.postValue(Resource.Error("Ошибка авторизации"))
+                    _token.postValue(Resource.Error("Ошибка авторизации"))
                 }
             } catch (e: Exception) {
                 Log.e("MyViewModel", "Ошибка авторизации: ${e.message}")
-                _loginResult.postValue(Resource.Error(e.message ?: "Ошибка авторизации"))
+                _token.postValue(Resource.Error(e.message ?: "Ошибка авторизации"))
             }
         }
     }
