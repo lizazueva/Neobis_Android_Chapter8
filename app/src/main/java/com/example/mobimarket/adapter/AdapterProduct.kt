@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.mobimarket.databinding.ItemProductBinding
 import com.example.mobimarket.model.Product
 
@@ -34,8 +35,9 @@ class AdapterProduct () : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val products = differ.currentList[position]
         with(holder.binding) {
-//            Glide.with(imageNews).load(news.urlToImage).into(imageNews)
-//            textTitle.text = products.title
+            Glide.with(imageProduct).load(products.image).into(imageProduct)
+            textName.text = products.title
+            textPrice.text = products.price
             holder.itemView.setOnClickListener{
                 onItemClickListener?.onClick(products, position)
             }

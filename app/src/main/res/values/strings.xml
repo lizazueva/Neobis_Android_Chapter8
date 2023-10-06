@@ -22,4 +22,7 @@
     <string name="editText_phone">+000 000 000 000</string>
     <string name="text_cancel">Вы действительно хотите\n отменить добавление товара?</string>
     <string name="text_exactly_exit">Вы действительно хотите выйти\n с приложения?</string>
+    <string name="text_delete">Изменить</string>
+    <string name="text_edit">Изменить</string>
+    <string name="text_delete_prod">Вы действительно хотите\n удалить данный товар?</string>
 </resources>

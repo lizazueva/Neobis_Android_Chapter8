@@ -1,9 +1,11 @@
 package com.example.mobimarket.api
 
 import com.example.mobimarket.model.LoginRequest
+import com.example.mobimarket.model.Product
 import com.example.mobimarket.model.RegistrationRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import retrofit2.Response
 import retrofit2.http.Part
 
 class Repository {
@@ -16,4 +18,6 @@ class Repository {
                    @Part("description") shortDesc: RequestBody,
                    @Part("more_info") fullDesc: RequestBody
     ) = RetrofitInstance.api.productAdd(image, title, price, shortDesc, fullDesc)
+
+    suspend fun getMyProducts() = RetrofitInstance.api.getMyProducts()
 }
