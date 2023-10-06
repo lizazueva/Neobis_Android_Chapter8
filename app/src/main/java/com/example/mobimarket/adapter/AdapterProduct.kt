@@ -36,6 +36,7 @@ class AdapterProduct () : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
         val products = differ.currentList[position]
         with(holder.binding) {
             Glide.with(imageProduct).load(products.image).into(imageProduct)
+            textLike.text = products.like_count.toString()
             textName.text = products.title
             textPrice.text = products.price
             holder.itemView.setOnClickListener{

@@ -8,5 +8,6 @@ data class Product(
     val description: String,
     val more_info: String,
     val price: String,
-    val image: String
+    val image: String,
+    val like_count: Int
 )

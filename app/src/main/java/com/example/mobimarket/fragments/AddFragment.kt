@@ -2,8 +2,10 @@ package com.example.mobimarket.fragments
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.Gravity
@@ -11,6 +13,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
 import android.widget.Toast
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.ViewModelProvider
@@ -18,13 +21,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mobimarket.R
 import com.example.mobimarket.adapter.AdapterPhoto
-import com.example.mobimarket.adapter.AdapterProduct
 import com.example.mobimarket.api.Repository
+import com.example.mobimarket.databinding.AlertDialogCancelAddBinding
 import com.example.mobimarket.databinding.FragmentAddBinding
-import com.example.mobimarket.model.Product
 import com.example.mobimarket.viewModel.AddProductViewModel
-import com.example.mobimarket.viewModel.UserViewModel
-import com.example.mobimarket.viewModel.ViewModelProviderFactoryLogin
 import com.google.android.material.snackbar.Snackbar
 class AddFragment : Fragment() {
 
@@ -60,6 +60,30 @@ class AddFragment : Fragment() {
         }
         binding.imageDone.setOnClickListener {
             addProduct()
+        }
+        binding.imageCancel.setOnClickListener {
+            callDialog()
+        }
+    }
+
+    private fun callDialog() {
+        val dialogBinding = AlertDialogCancelAddBinding.inflate(layoutInflater)
+        val dialog = Dialog(requireContext())
+
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        dialog.setCancelable(true)
+        dialog.setContentView(dialogBinding.root)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog.show()
+
+        dialogBinding.buttonNo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialogBinding.buttonDelete.setOnClickListener {
+            dialog.dismiss()
+            findNavController().navigate(R.id.action_addFragment_to_userFragment)
+
         }
     }
 

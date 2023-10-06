@@ -32,21 +32,21 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
-//        val floatingActionButton = findViewById<FloatingActionButton>(R.id.floating)
-//
-//        navController.addOnDestinationChangedListener { _, destination, _ ->
-//            if (destination.id == R.id.userFragment|| destination.id == R.id.chatFragment
-//                || destination.id == R.id.walletFragment|| destination.id == R.id.homeFragment) {
-//                bottomNav.visibility = View.VISIBLE
-//                bottomAppBar.visibility = View.VISIBLE
-//                floatingActionButton.visibility = View.VISIBLE
-//            } else {
-//                bottomNav.visibility = View.GONE
-//                bottomAppBar.visibility = View.GONE
-//                floatingActionButton.visibility = View.GONE
-//            }
-//        }
+        val bottomAppBar = findViewById<BottomAppBar>(R.id.bottomAppBar)
+        val floatingActionButton = findViewById<FloatingActionButton>(R.id.floating)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.userFragment|| destination.id == R.id.chatFragment
+                || destination.id == R.id.walletFragment|| destination.id == R.id.homeFragment) {
+                bottomNav.visibility = View.VISIBLE
+                bottomAppBar.visibility = View.VISIBLE
+                floatingActionButton.visibility = View.VISIBLE
+            } else {
+                bottomNav.visibility = View.GONE
+                bottomAppBar.visibility = View.GONE
+                floatingActionButton.visibility = View.GONE
+            }
+        }
 
 //        bottomNav.setOnItemSelectedListener { menuItem ->
 //            when (menuItem.itemId) {

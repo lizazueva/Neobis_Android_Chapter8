@@ -7,22 +7,23 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card_add_photo"
-        android:layout_width="76dp"
-        android:layout_height="96dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="96dp"
+        android:layout_height="110dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/card_backgr"
         app:cardCornerRadius="15dp"
-        android:background="@drawable/card_backgr"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/image_product"
-        android:scaleType="fitXY"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/card_backgr"
-        android:layout_gravity="center_horizontal|center_vertical" />
+        <ImageView
+            android:id="@+id/image_product"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:background="@drawable/card_backgr"
+            android:scaleType="fitXY" />
     </androidx.cardview.widget.CardView>
 
 

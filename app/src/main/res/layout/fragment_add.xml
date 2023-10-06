@@ -34,8 +34,8 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/card_add_photo"
-                android:layout_width="76dp"
-                android:layout_height="96dp"
+                android:layout_width="96dp"
+                android:layout_height="116dp"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="32dp"
                 app:cardCornerRadius="15dp"
@@ -44,8 +44,8 @@
                 app:layout_constraintTop_toBottomOf="@+id/image_cancel">
 
                 <ImageView
-                    android:layout_width="50dp"
-                    android:layout_height="70dp"
+                    android:layout_width="70dp"
+                    android:layout_height="100dp"
                     android:layout_gravity="center_horizontal|center_vertical"
                     android:src="@drawable/ic_add_photo" />
 
@@ -155,7 +155,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_photo"
                     android:layout_width="0dp"
-                    android:layout_height="96dp"
+                    android:layout_height="116dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="32dp"
