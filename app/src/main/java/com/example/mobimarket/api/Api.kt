@@ -11,10 +11,12 @@ import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 interface Api {
 
@@ -34,6 +36,16 @@ interface Api {
 
     @GET("products/my_products_list/")
     suspend fun getMyProducts(): Response<List<Product>>
+
+    @GET("products/list/")
+    suspend fun getProductsList(): Response<List<Product>>
+
+    @DELETE("products/delete_product/{id}")
+    suspend fun productDelete(@Path("id") id: Int): Response<Unit>
+
+    @GET ("products/detail_product/{id}")
+    suspend fun productDetail(@Path("id") id: Int): Response<Unit>
+
 
 
 }

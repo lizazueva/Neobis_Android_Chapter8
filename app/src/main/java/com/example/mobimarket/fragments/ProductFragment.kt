@@ -2,7 +2,6 @@ package com.example.mobimarket.fragments
 
 import android.app.Dialog
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -12,16 +11,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
-import android.widget.GridLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mobimarket.R
 import com.example.mobimarket.adapter.AdapterProduct
 import com.example.mobimarket.api.Repository
-import com.example.mobimarket.databinding.AlertDialogCancelAddBinding
 import com.example.mobimarket.databinding.AlertDialogDeleteBinding
 import com.example.mobimarket.databinding.AlertDialogExitBinding
 import com.example.mobimarket.databinding.BottomSheetDialogBinding
@@ -33,6 +31,8 @@ import com.example.mobimarket.viewModel.MyProductsViewModel
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryLogin
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryMyProducts
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.launch
+import java.text.FieldPosition
 
 
 class ProductFragment : Fragment() {
@@ -100,7 +100,7 @@ class ProductFragment : Fragment() {
             }
 
             override fun onDotsClick(data: Product, position: Int) {
-                dialog()
+                dialog(data, position)
             }
 
             override fun onLikeClick(data: Product, position: Int) {
@@ -110,7 +110,7 @@ class ProductFragment : Fragment() {
 
     }
 
-    fun dialog() {
+    fun dialog(data: Product, position: Int) {
         val binding: BottomSheetDialogBinding =
             BottomSheetDialogBinding.inflate(LayoutInflater.from(context))
         val dialog = BottomSheetDialog(requireContext())
@@ -120,13 +120,13 @@ class ProductFragment : Fragment() {
             dialog.dismiss()
         }
         binding.layoutDelete.setOnClickListener {
-            alert_dialog_menu()
+            alert_dialog_menu(data, position)
             dialog.dismiss()
         }
         dialog.show()
     }
 
-    private fun alert_dialog_menu() {
+    private fun alert_dialog_menu(data: Product, position: Int) {
         val dialogBinding = AlertDialogDeleteBinding.inflate(layoutInflater)
         val dialog = Dialog(requireContext())
 
@@ -142,9 +142,11 @@ class ProductFragment : Fragment() {
 
         dialogBinding.buttonDelete.setOnClickListener {
             dialog.dismiss()
-            //удаление
+            viewModelProductFragment.viewModelScope.launch {
+                viewModelProductFragment.productDelete(data.id)
+            }
+
         }
 
     }
-
 }

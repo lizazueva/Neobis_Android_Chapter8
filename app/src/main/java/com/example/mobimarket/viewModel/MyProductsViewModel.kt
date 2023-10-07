@@ -1,6 +1,9 @@
 package com.example.mobimarket.viewModel
 
+import android.provider.Settings.Global.getString
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -40,8 +43,20 @@ class MyProductsViewModel (val repository: Repository): ViewModel() {
             }
         }
 
-
-
+    suspend fun productDelete(id: Int) {
+        viewModelScope.launch {
+            try {
+                val response = repository.productDelete(id)
+                if (response.isSuccessful) {
+                    Log.d("productDelete", "Successful")
+                } else {
+                    Log.e("productDelete", "Error: ${response.message()}")
+                }
+            } catch (e: Exception) {
+                Log.e("productDelete", "Error: ${e.message}")
+            }
+        }
+    }
 
     }
 
