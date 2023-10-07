@@ -73,4 +73,10 @@ class AdapterProduct () : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
     }
     val differ = AsyncListDiffer(this, differCallback)
 
+    fun removeItem(position: Int) {
+        val newList = ArrayList(differ.currentList)
+        newList.removeAt(position)
+        differ.submitList(newList)
+    }
+
 }

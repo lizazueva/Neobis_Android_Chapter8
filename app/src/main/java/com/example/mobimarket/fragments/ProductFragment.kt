@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -49,8 +50,9 @@ class ProductFragment : Fragment() {
     ): View? {
         binding = FragmentProductBinding.inflate(inflater, container, false)
         val repository = Repository()
-        val viewModelFactory = ViewModelProviderFactoryMyProducts(repository)
-        viewModelProductFragment = ViewModelProvider(this, viewModelFactory).get(MyProductsViewModel::class.java)
+        val viewModelFactory = ViewModelProviderFactoryMyProducts(repository, requireContext())
+        viewModelProductFragment =
+            ViewModelProvider(this, viewModelFactory).get(MyProductsViewModel::class.java)
         return binding.root
     }
 
@@ -69,19 +71,21 @@ class ProductFragment : Fragment() {
 
     private fun showMyProducts() {
         viewModelProductFragment.getMyProducts()
-        viewModelProductFragment.my_products.observe(viewLifecycleOwner, Observer { response->
-            when (response){
+        viewModelProductFragment.my_products.observe(viewLifecycleOwner, Observer { response ->
+            when (response) {
                 is Resource.Success -> {
-                    response.data?.let {products ->
+                    response.data?.let { products ->
                         binding.imageBox.isVisible = products.isEmpty()
                         adapterProduct.differ.submitList(products)
                     }
                 }
+
                 is Resource.Error -> {
-                    response.message?.let{message->
+                    response.message?.let { message ->
                         Log.e(TAG, "Error: $message")
                     }
                 }
+
                 is Resource.Loading -> {
 
                 }
@@ -92,9 +96,9 @@ class ProductFragment : Fragment() {
     private fun adapter() {
         adapterProduct = AdapterProduct()
         binding.recyclerMenu.adapter = adapterProduct
-        binding.recyclerMenu.layoutManager =GridLayoutManager(requireContext(),2)
+        binding.recyclerMenu.layoutManager = GridLayoutManager(requireContext(), 2)
 
-        adapterProduct.setOnItemClick(object: AdapterProduct.ListClickListener<Product>{
+        adapterProduct.setOnItemClick(object : AdapterProduct.ListClickListener<Product> {
             override fun onClick(data: Product, position: Int) {
 
             }
@@ -142,11 +146,21 @@ class ProductFragment : Fragment() {
 
         dialogBinding.buttonDelete.setOnClickListener {
             dialog.dismiss()
-            viewModelProductFragment.viewModelScope.launch {
-                viewModelProductFragment.productDelete(data.id)
-            }
-
+            productDelete(data, position)
         }
 
+    }
+
+    fun productDelete(data: Product, position: Int) {
+        viewModelProductFragment.productDelete(
+            onSuccess = {
+                Toast.makeText(requireContext(), "Товар удален", Toast.LENGTH_SHORT).show()
+                adapterProduct.removeItem(position)
+            },
+            onError = {
+                Toast.makeText(requireContext(), "Ошибка удаления товара", Toast.LENGTH_SHORT).show()
+            },
+            data.id
+        )
     }
 }

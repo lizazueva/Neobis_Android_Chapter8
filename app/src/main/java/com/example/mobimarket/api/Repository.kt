@@ -21,6 +21,6 @@ class Repository {
 
     suspend fun getMyProducts() = RetrofitInstance.api.getMyProducts()
     suspend fun getProductsList() = RetrofitInstance.api.getProductsList()
-    suspend fun productDelete(id: Int) = RetrofitInstance.api.productDelete(id)
+    fun productDelete(id: Int) = RetrofitInstance.api.productDelete(id)
     suspend fun productDetail(id: Int) = RetrofitInstance.api.productDetail(id)
 }
