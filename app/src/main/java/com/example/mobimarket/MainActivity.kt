@@ -3,7 +3,6 @@ package com.example.mobimarket
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.Navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.mobimarket.databinding.ActivityMainBinding
@@ -47,22 +46,5 @@ class MainActivity : AppCompatActivity() {
                 floatingActionButton.visibility = View.GONE
             }
         }
-
-//        bottomNav.setOnItemSelectedListener { menuItem ->
-//            when (menuItem.itemId) {
-//                R.id.homeFragment -> {
-//                    navController.navigate(R.id.homeFragment)
-//                    true
-//                }
-//                R.id.userFragment -> {
-//                    navController.navigate(R.id.userFragment)
-//                    true
-//                }
-//                else -> false
-//            }
-//        }
-
     }
-
-
 }
