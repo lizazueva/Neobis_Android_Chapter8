@@ -52,6 +52,7 @@ class RetrofitInstance {
                         path.endsWith("products/my_products_list/")||
                         path.contains("products/delete_product/") && request.method == "DELETE"
 
+
             }
         }
     }
