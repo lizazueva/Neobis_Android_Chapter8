@@ -44,7 +44,7 @@ interface Api {
     fun productDelete(@Path("id") id: Int): Call<Unit>
 
     @GET ("products/detail_product/{id}")
-    suspend fun productDetail(@Path("id") id: Int): Response<Unit>
+    suspend fun productDetail(@Path("id") id: Int): Response<Product>
 
 
 

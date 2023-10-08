@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mobimarket.R
 import com.example.mobimarket.adapter.AdapterProduct
@@ -79,7 +80,8 @@ class HomeFragment : Fragment() {
 
         adapterProduct.setOnItemClick(object : AdapterProduct.ListClickListener<Product> {
             override fun onClick(data: Product, position: Int) {
-
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(data)
+                findNavController().navigate(action)
             }
 
             override fun onDotsClick(data: Product, position: Int) {

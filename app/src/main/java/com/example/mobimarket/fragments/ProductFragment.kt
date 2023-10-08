@@ -42,7 +42,6 @@ class ProductFragment : Fragment() {
     private lateinit var adapterProduct: AdapterProduct
     lateinit var viewModelProductFragment: MyProductsViewModel
 
-    var products = emptyList<Product>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -100,6 +99,8 @@ class ProductFragment : Fragment() {
 
         adapterProduct.setOnItemClick(object : AdapterProduct.ListClickListener<Product> {
             override fun onClick(data: Product, position: Int) {
+                val action = ProductFragmentDirections.actionProductFragmentToDetailFragment(data)
+                findNavController().navigate(action)
 
             }
 

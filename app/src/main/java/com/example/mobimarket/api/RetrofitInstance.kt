@@ -51,6 +51,7 @@ class RetrofitInstance {
                 return path.endsWith("products/create_product/")||
                         path.endsWith("products/my_products_list/")||
                         path.contains("products/delete_product/") && request.method == "DELETE"
+                        path.contains("products/detail_product/") && request.method == "GET"
 
 
             }

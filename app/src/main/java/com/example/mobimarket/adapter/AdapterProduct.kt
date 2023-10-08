@@ -39,7 +39,7 @@ class AdapterProduct () : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
             textLike.text = products.like_count.toString()
             textName.text = products.title
             textPrice.text = products.price
-            holder.itemView.setOnClickListener{
+            holder.binding.cardItem.setOnClickListener{
                 onItemClickListener?.onClick(products, position)
             }
             holder.binding.iconThreeDots.setOnClickListener {
