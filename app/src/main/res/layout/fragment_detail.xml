@@ -22,10 +22,9 @@
 
         <ImageView
             android:id="@+id/image_product"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:src="@drawable/icn_mobi_market"
+            android:scaleType="fitXY"
             app:layout_constraintBottom_toBottomOf="@+id/bar_for_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -73,7 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="35dp"
-            android:text="Нравится:"
+            android:text="@string/text_like"
             android:textColor="@color/grey"
             android:textSize="14sp"
             android:textStyle="bold"

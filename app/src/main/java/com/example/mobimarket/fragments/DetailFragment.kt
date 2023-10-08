@@ -64,9 +64,10 @@ class DetailFragment : Fragment() {
                     is Resource.Success -> {
                         response.data?.let { product ->
                             binding.textNameProduct.text= product.title
-                            binding.textDetail.text = product.description
+                            binding.textDescriptionProduct.text = product.description
                             binding.textMoreInfo.text = product.more_info
                             binding.textPriceProduct.text = product.price
+                            binding.textLike.text= getString(R.string.text_like, product.like_count)
                             Glide.with(binding.imageProduct).load(product.image).into(binding.imageProduct)
                         }
                     }

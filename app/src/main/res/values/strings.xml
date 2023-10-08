@@ -25,4 +25,5 @@
     <string name="text_delete">Изменить</string>
     <string name="text_edit">Изменить</string>
     <string name="text_delete_prod">Вы действительно хотите\n удалить данный товар?</string>
+    <string name="text_like">Нравится: %d</string>
 </resources>
