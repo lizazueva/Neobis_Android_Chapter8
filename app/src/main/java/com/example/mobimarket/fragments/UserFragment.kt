@@ -52,6 +52,10 @@ class UserFragment : Fragment() {
             findNavController().navigate(R.id.action_userFragment_to_productFragment)
         }
 
+        binding.imageLikedProducts.setOnClickListener {
+            findNavController().navigate(R.id.action_userFragment_to_likeFragment)
+        }
+
         binding.imageLogout.setOnClickListener {
             callDialog()
         }

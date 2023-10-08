@@ -1,13 +1,16 @@
 package com.example.mobimarket.fragments
 
 import android.content.ContentValues
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -23,6 +26,7 @@ import com.example.mobimarket.viewModel.MyProductsViewModel
 import com.example.mobimarket.viewModel.ProductsListViewModel
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryMyProducts
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryProducts
+import com.google.android.material.snackbar.Snackbar
 
 class HomeFragment : Fragment() {
 
@@ -89,8 +93,35 @@ class HomeFragment : Fragment() {
             }
 
             override fun onLikeClick(data: Product, position: Int) {
-            }
+                viewModelProductsListFragment.likeProduct(
+                    onSuccess = {
+                        snackBar()
 
+                    },
+                    onError = {
+                        Toast.makeText(requireContext(), "Please try again", Toast.LENGTH_SHORT).show()
+                    },
+                    id = data.id
+                )
+            }
         })
+    }
+
+    private fun snackBar() {
+        val snackbar = Snackbar.make(binding.root, "", Snackbar.LENGTH_SHORT)
+        val snackbarView = snackbar.view
+        val snackbarLayout = snackbarView as Snackbar.SnackbarLayout
+
+        val layoutParams = snackbarLayout.layoutParams as CoordinatorLayout.LayoutParams
+        layoutParams.gravity = Gravity.TOP
+
+        snackbarLayout.setBackgroundColor(Color.TRANSPARENT)
+
+        val customSnackbarView = layoutInflater.inflate(R.layout.like_product_snackbar, null)
+        snackbarLayout.removeAllViews()
+        snackbarLayout.addView(customSnackbarView)
+
+        snackbar.show()
+
     }
 }

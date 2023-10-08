@@ -10,6 +10,9 @@ import com.example.mobimarket.api.Repository
 import com.example.mobimarket.model.Product
 import com.example.mobimarket.utils.Resource
 import kotlinx.coroutines.launch
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ProductsListViewModel (val repository: Repository): ViewModel() {
 
@@ -38,6 +41,27 @@ class ProductsListViewModel (val repository: Repository): ViewModel() {
                 _products.postValue(Resource.Error(e.message ?: "Ошибка загрузки"))
             }
         }
+    }
+
+    fun likeProduct(onSuccess: () -> Unit,
+                      onError: (String?) -> Unit,
+                      id: Int){
+        repository.likeProduct(id).enqueue(object : Callback<Unit> {
+            override fun onResponse(call: Call<Unit>, response: Response<Unit>) {
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    onError("Ошибка при выполнении запроса: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<Unit>, t: Throwable) {
+                Log.e("ProductsListViewModel", "Ошибка при выполнении запроса", t)
+                onError("")
+            }
+
+        })
+
     }
 
 }

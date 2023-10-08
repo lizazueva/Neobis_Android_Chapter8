@@ -50,8 +50,10 @@ class RetrofitInstance {
                 val path = request.url.encodedPath
                 return path.endsWith("products/create_product/")||
                         path.endsWith("products/my_products_list/")||
-                        path.contains("products/delete_product/") && request.method == "DELETE"
-                        path.contains("products/detail_product/") && request.method == "GET"
+                        path.contains("products/delete_product/") && request.method == "DELETE"||
+                        path.contains("products/detail_product/") && request.method == "GET"||
+                        path.endsWith("favorite/list/")||
+                        path.contains("favorite/toggle_favorite/") && request.method == "POST"
 
 
             }

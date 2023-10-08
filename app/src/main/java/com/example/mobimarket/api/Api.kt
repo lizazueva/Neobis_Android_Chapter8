@@ -37,6 +37,12 @@ interface Api {
     @GET("products/my_products_list/")
     suspend fun getMyProducts(): Response<List<Product>>
 
+    @POST("favorite/toggle_favorite/{product_id}")
+    fun likeProduct(@Path("product_id") id: Int):Call<Unit>
+
+    @GET("favorite/list/")
+    suspend fun getLikedProducts(): Response<List<Product>>
+
     @GET("products/list/")
     suspend fun getProductsList(): Response<List<Product>>
 

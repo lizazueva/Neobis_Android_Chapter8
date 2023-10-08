@@ -20,7 +20,9 @@ class Repository {
     ) = RetrofitInstance.api.productAdd(image, title, price, shortDesc, fullDesc)
 
     suspend fun getMyProducts() = RetrofitInstance.api.getMyProducts()
+    suspend fun getLikedProducts() = RetrofitInstance.api.getLikedProducts()
     suspend fun getProductsList() = RetrofitInstance.api.getProductsList()
     fun productDelete(id: Int) = RetrofitInstance.api.productDelete(id)
+    fun likeProduct(id: Int) = RetrofitInstance.api.likeProduct(id)
     suspend fun productDetail(id: Int) = RetrofitInstance.api.productDetail(id)
 }

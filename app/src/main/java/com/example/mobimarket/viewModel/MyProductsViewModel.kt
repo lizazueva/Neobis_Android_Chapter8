@@ -1,11 +1,7 @@
 package com.example.mobimarket.viewModel
 
 import android.content.Context
-import android.provider.Settings.Global.getString
 import android.util.Log
-import android.widget.Adapter
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

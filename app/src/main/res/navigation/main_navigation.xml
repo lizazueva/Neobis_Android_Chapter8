@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_userFragment_to_productFragment"
             app:destination="@id/productFragment" />
+        <action
+            android:id="@+id/action_userFragment_to_likeFragment"
+            app:destination="@id/likeFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatFragment"
@@ -109,5 +112,20 @@
         <argument
             android:name="product"
             app:argType="com.example.mobimarket.model.Product" />
+        <action
+            android:id="@+id/action_detailFragment_to_likeFragment"
+            app:destination="@id/likeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/likeFragment"
+        android:name="com.example.mobimarket.fragments.LikeFragment"
+        android:label="fragment_like"
+        tools:layout="@layout/fragment_like" >
+        <action
+            android:id="@+id/action_likeFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+        <action
+            android:id="@+id/action_likeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 </navigation>
