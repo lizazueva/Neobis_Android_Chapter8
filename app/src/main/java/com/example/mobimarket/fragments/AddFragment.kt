@@ -24,6 +24,7 @@ import com.example.mobimarket.adapter.AdapterPhoto
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.AlertDialogCancelAddBinding
 import com.example.mobimarket.databinding.FragmentAddBinding
+import com.example.mobimarket.model.Product
 import com.example.mobimarket.viewModel.AddProductViewModel
 import com.google.android.material.snackbar.Snackbar
 class AddFragment : Fragment() {
@@ -58,11 +59,26 @@ class AddFragment : Fragment() {
         binding.cardAddPhoto.setOnClickListener {
             chooseImage()
         }
+
         binding.imageDone.setOnClickListener {
             addProduct()
         }
         binding.imageCancel.setOnClickListener {
             callDialog()
+        }
+
+        data()
+    }
+
+    private fun data() {
+        val place = arguments?.getParcelable<Product>("product")
+        if (place != null){
+            binding.editTextName.setText(place.title)
+            binding.editTextPrice.setText(place.price)
+            binding.editTextDescrip.setText(place.description)
+            binding.editTextDetail.setText(place.more_info)
+//            photos = place.image
+//            adapterPhoto.notifyDataSetChanged()
         }
     }
 
@@ -89,11 +105,13 @@ class AddFragment : Fragment() {
 
     @SuppressLint("SuspiciousIndentation")
     private fun addProduct() {
-        val image = photos
-        val title = binding.editTextName.text.toString()
-        val description = binding.editTextDescrip.text.toString()
-        val more_info = binding.editTextDetail.text.toString()
-        val price = binding.editTextPrice.text.toString()
+        val place = arguments?.getParcelable<Product>("product")
+        if (place == null) {
+            val image = photos
+            val title = binding.editTextName.text.toString()
+            val description = binding.editTextDescrip.text.toString()
+            val more_info = binding.editTextDetail.text.toString()
+            val price = binding.editTextPrice.text.toString()
 
             viewModelAddFragment.createProduct(image, title, price, description, more_info,
                 onSuccess = {
@@ -101,10 +119,31 @@ class AddFragment : Fragment() {
                     snackBar()
                 },
                 onError = {
-                    Toast.makeText(requireContext(), "Ошибка при добавлении продукта", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        requireContext(),
+                        "Ошибка при добавлении продукта",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             )
+        }else{
+            val image = photos
+            var title = binding.editTextName.text.toString()
+            val price = binding.editTextPrice.text.toString()
+            val description = binding.editTextDescrip.text.toString()
+            val more_info = binding.editTextDetail.text.toString()
+
+            viewModelAddFragment.productUpdate(place.id, image, title, price, description, more_info,
+                onSuccess = {
+                    findNavController().navigate(R.id.action_addFragment_to_productFragment)
+                    Toast.makeText(requireContext(), "Продукт изменен", Toast.LENGTH_SHORT).show()
+                },
+                onError = {
+                    Toast.makeText(requireContext(), "Ошибка при изменении товара", Toast.LENGTH_SHORT).show()
+
+                })
         }
+    }
 
     private fun chooseImage() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)

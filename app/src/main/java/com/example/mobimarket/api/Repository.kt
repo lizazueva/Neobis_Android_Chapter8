@@ -7,6 +7,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.Part
+import retrofit2.http.Path
 
 class Repository {
     suspend fun login (request: LoginRequest) = RetrofitInstance.api.login(request)
@@ -18,6 +19,14 @@ class Repository {
                    @Part("description") shortDesc: RequestBody,
                    @Part("more_info") fullDesc: RequestBody
     ) = RetrofitInstance.api.productAdd(image, title, price, shortDesc, fullDesc)
+
+    fun productUpdate(@Path("id") id: Int,
+                      @Part image: List<MultipartBody.Part>,
+                      @Part("title") title: RequestBody,
+                      @Part("price") price: RequestBody,
+                      @Part("description") shortDesc: RequestBody,
+                      @Part("more_info") fullDesc: RequestBody
+    ) = RetrofitInstance.api.productUpdate(id, image, title, price, shortDesc, fullDesc)
 
     suspend fun getMyProducts() = RetrofitInstance.api.getMyProducts()
     suspend fun getLikedProducts() = RetrofitInstance.api.getLikedProducts()

@@ -85,6 +85,9 @@
         <action
             android:id="@+id/action_addFragment_to_userFragment"
             app:destination="@id/userFragment" />
+        <argument
+            android:name="product"
+            app:argType="com.example.mobimarket.model.Product" />
     </fragment>
     <fragment
         android:id="@+id/productFragment"
@@ -97,6 +100,9 @@
         <action
             android:id="@+id/action_productFragment_to_detailFragment"
             app:destination="@id/detailFragment" />
+        <action
+            android:id="@+id/action_productFragment_to_addFragment"
+            app:destination="@id/addFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"

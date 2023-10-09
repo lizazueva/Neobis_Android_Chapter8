@@ -52,6 +52,8 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
         adapter()
         showProducts()
     }
@@ -81,7 +83,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun adapter() {
-        sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
         adapterProduct = AdapterProduct(sharedPreferencesHelper)
         binding.recyclerMenu.adapter = adapterProduct
         binding.recyclerMenu.layoutManager = GridLayoutManager(requireContext(), 2)
@@ -100,17 +101,17 @@ class HomeFragment : Fragment() {
                 viewModelProductsListFragment.likeProduct(
                     onSuccess = {
                         if (sharedPreferencesHelper.isProductLiked(data.id)) {
-                            // Дизлайк продукта
+                            // Дизлайк
                             sharedPreferencesHelper.setProductLiked(data.id, false)
 
                         } else {
-                            // Лайк продукта
+                            // Лайк
+                            snackBar()
                             sharedPreferencesHelper.setProductLiked(data.id, true)
                         }
-
-
-                        snackBar()
-
+                        adapterProduct.updateItem(data)
+                        adapterProduct.notifyItemChanged(position)
+                        adapterProduct.notifyDataSetChanged()
                     },
                     onError = {
                         Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_SHORT).show()

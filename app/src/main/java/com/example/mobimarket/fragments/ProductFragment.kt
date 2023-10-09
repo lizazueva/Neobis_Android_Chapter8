@@ -120,7 +120,8 @@ class ProductFragment : Fragment() {
         val dialog = BottomSheetDialog(requireContext())
         dialog.setContentView(binding.root)
         binding.layoutEdit.setOnClickListener {
-            //изменение
+            val action = ProductFragmentDirections.actionProductFragmentToAddFragment(data)
+            findNavController().navigate(action)
             dialog.dismiss()
         }
         binding.layoutDelete.setOnClickListener {

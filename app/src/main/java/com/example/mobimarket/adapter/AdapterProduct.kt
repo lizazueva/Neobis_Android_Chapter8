@@ -50,10 +50,8 @@ class AdapterProduct (private val sharedPreferencesHelper: SharedPreferencesHelp
                 onItemClickListener?.onLikeClick(products, position)
             }
             if (sharedPreferencesHelper.isProductLiked(products.id)) {
-                // Продукт лайкнут - установить красный цвет
                 holder.binding.imageLike.setColorFilter(Color.RED)
             } else {
-                // Продукт не лайкнут - установить серый цвет
                 holder.binding.imageLike.setColorFilter(Color.GRAY)
             }
         }
@@ -85,6 +83,15 @@ class AdapterProduct (private val sharedPreferencesHelper: SharedPreferencesHelp
         val newList = ArrayList(differ.currentList)
         newList.removeAt(position)
         differ.submitList(newList)
+    }
+
+    fun updateItem(updatedProduct: Product) {
+        val position = differ.currentList.indexOfFirst { it.id == updatedProduct.id }
+        if (position != -1) {
+            val newList = ArrayList(differ.currentList)
+            newList[position] = updatedProduct
+            differ.submitList(newList)
+        }
     }
 
 }
