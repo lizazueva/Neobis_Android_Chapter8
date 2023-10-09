@@ -19,6 +19,7 @@ import com.example.mobimarket.databinding.FragmentLikeBinding
 import com.example.mobimarket.databinding.FragmentProductBinding
 import com.example.mobimarket.model.Product
 import com.example.mobimarket.utils.Resource
+import com.example.mobimarket.utils.SharedPreferencesHelper
 import com.example.mobimarket.viewModel.LikedProductViewModel
 import com.example.mobimarket.viewModel.MyProductsViewModel
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryLikedProducts
@@ -29,6 +30,8 @@ class LikeFragment : Fragment() {
     private lateinit var binding: FragmentLikeBinding
     private lateinit var adapterLikeProduct: AdapterProduct
     lateinit var viewModelProductLikeFragment: LikedProductViewModel
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +82,8 @@ class LikeFragment : Fragment() {
     }
 
     private fun adapter() {
-        adapterLikeProduct = AdapterProduct()
+        sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
+        adapterLikeProduct = AdapterProduct(sharedPreferencesHelper)
         binding.recyclerMenu.adapter = adapterLikeProduct
         binding.recyclerMenu.layoutManager = GridLayoutManager(requireContext(), 2)
 

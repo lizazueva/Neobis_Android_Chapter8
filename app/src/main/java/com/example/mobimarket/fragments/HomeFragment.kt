@@ -22,6 +22,7 @@ import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.FragmentHomeBinding
 import com.example.mobimarket.model.Product
 import com.example.mobimarket.utils.Resource
+import com.example.mobimarket.utils.SharedPreferencesHelper
 import com.example.mobimarket.viewModel.MyProductsViewModel
 import com.example.mobimarket.viewModel.ProductsListViewModel
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryMyProducts
@@ -33,6 +34,8 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adapterProduct: AdapterProduct
     lateinit var viewModelProductsListFragment: ProductsListViewModel
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
+
 
 
     override fun onCreateView(
@@ -65,7 +68,7 @@ class HomeFragment : Fragment() {
                 }
 
                 is Resource.Error -> {
-                    response.message?.let { message ->
+                    response.message?.let {
                         Toast.makeText(requireContext(), "Не удалось загрузить товары", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -78,7 +81,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun adapter() {
-        adapterProduct = AdapterProduct()
+        sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
+        adapterProduct = AdapterProduct(sharedPreferencesHelper)
         binding.recyclerMenu.adapter = adapterProduct
         binding.recyclerMenu.layoutManager = GridLayoutManager(requireContext(), 2)
 
@@ -95,11 +99,21 @@ class HomeFragment : Fragment() {
             override fun onLikeClick(data: Product, position: Int) {
                 viewModelProductsListFragment.likeProduct(
                     onSuccess = {
+                        if (sharedPreferencesHelper.isProductLiked(data.id)) {
+                            // Дизлайк продукта
+                            sharedPreferencesHelper.setProductLiked(data.id, false)
+
+                        } else {
+                            // Лайк продукта
+                            sharedPreferencesHelper.setProductLiked(data.id, true)
+                        }
+
+
                         snackBar()
 
                     },
                     onError = {
-                        Toast.makeText(requireContext(), "Please try again", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(requireContext(), "Попробуйте еще раз", Toast.LENGTH_SHORT).show()
                     },
                     id = data.id
                 )

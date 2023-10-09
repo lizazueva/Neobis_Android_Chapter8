@@ -1,5 +1,6 @@
 package com.example.mobimarket.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -8,12 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.mobimarket.databinding.ItemProductBinding
 import com.example.mobimarket.model.Product
+import com.example.mobimarket.utils.SharedPreferencesHelper
 
-class AdapterProduct () : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
+class AdapterProduct (private val sharedPreferencesHelper: SharedPreferencesHelper) : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
 
 //    private var onItemClickListener: ((Product)-> Unit)? = null
     var onItemClickListener: ListClickListener<Product>? = null
-
 
     fun setOnItemClick(listClickListener: ListClickListener<Product>) {
         this.onItemClickListener = listClickListener
@@ -47,6 +48,13 @@ class AdapterProduct () : RecyclerView.Adapter<AdapterProduct.ViewHolder>() {
             }
             holder.binding.imageLike.setOnClickListener {
                 onItemClickListener?.onLikeClick(products, position)
+            }
+            if (sharedPreferencesHelper.isProductLiked(products.id)) {
+                // Продукт лайкнут - установить красный цвет
+                holder.binding.imageLike.setColorFilter(Color.RED)
+            } else {
+                // Продукт не лайкнут - установить серый цвет
+                holder.binding.imageLike.setColorFilter(Color.GRAY)
             }
         }
     }

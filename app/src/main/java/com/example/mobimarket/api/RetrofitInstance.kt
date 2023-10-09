@@ -52,10 +52,9 @@ class RetrofitInstance {
                         path.endsWith("products/my_products_list/")||
                         path.contains("products/delete_product/") && request.method == "DELETE"||
                         path.contains("products/detail_product/") && request.method == "GET"||
-                        path.endsWith("favorite/list/")||
-                        path.contains("favorite/toggle_favorite/") && request.method == "POST"
-
-
+                        path.endsWith("products/favorite_products/")||
+                        path.contains("favorite/toggle_favorite/") && request.method == "POST"||
+                        path.contains("products/update_product/") && request.method == "PUT"
             }
         }
     }

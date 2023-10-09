@@ -17,26 +17,21 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.mobimarket.R
 import com.example.mobimarket.adapter.AdapterProduct
 import com.example.mobimarket.api.Repository
 import com.example.mobimarket.databinding.AlertDialogDeleteBinding
-import com.example.mobimarket.databinding.AlertDialogExitBinding
 import com.example.mobimarket.databinding.BottomSheetDialogBinding
 import com.example.mobimarket.databinding.FragmentProductBinding
 import com.example.mobimarket.model.Product
 import com.example.mobimarket.utils.Resource
-import com.example.mobimarket.viewModel.LoginViewModel
+import com.example.mobimarket.utils.SharedPreferencesHelper
 import com.example.mobimarket.viewModel.MyProductsViewModel
-import com.example.mobimarket.viewModel.ViewModelProviderFactoryLogin
 import com.example.mobimarket.viewModel.ViewModelProviderFactoryMyProducts
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.launch
-import java.text.FieldPosition
 
 
 class ProductFragment : Fragment() {
@@ -44,7 +39,7 @@ class ProductFragment : Fragment() {
     private lateinit var binding: FragmentProductBinding
     private lateinit var adapterProduct: AdapterProduct
     lateinit var viewModelProductFragment: MyProductsViewModel
-
+    private lateinit var sharedPreferencesHelper: SharedPreferencesHelper
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,7 +91,8 @@ class ProductFragment : Fragment() {
     }
 
     private fun adapter() {
-        adapterProduct = AdapterProduct()
+        sharedPreferencesHelper = SharedPreferencesHelper(requireContext())
+        adapterProduct = AdapterProduct(sharedPreferencesHelper)
         binding.recyclerMenu.adapter = adapterProduct
         binding.recyclerMenu.layoutManager = GridLayoutManager(requireContext(), 2)
 
