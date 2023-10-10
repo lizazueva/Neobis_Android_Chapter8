@@ -12,5 +12,6 @@ data class Product(
     val more_info: String,
     val price: String,
     val image: String,
-    var like_count: Int
+    var like_count: Int,
+    val additional_image: Int
 ): Parcelable
